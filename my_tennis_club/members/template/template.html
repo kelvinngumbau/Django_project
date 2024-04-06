@@ -1,0 +1,76 @@
+{% extends "master.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+</head>
+<body>
+{# also you can create variables inside this template using {% with%} #}
+{# {% endwith %} #}
+{% block title%}
+my variables
+{% endblock %}
+
+{% block content%}
+<div class="container-fluid">
+    <h1>welcome {{ firstname }} to our training</h1>
+    <p>We are excited to have you on board</p>
+</div>
+{% with firstname="van persie" %}
+    
+    <p> {{firstname}}, how is the environment in our training</p>
+    
+{% endwith %}
+<h2>You will meet the folowing team members</h2>
+<ul>
+    {% for member in mymembers %}
+        <li>{{member.firstname}} {{member.lastname}}</li>
+    {% endfor %}
+</ul>
+    {% if firstname == "van persie" %}
+        <p>van persie, we will start our training tomorrow</p>
+    {% elif firstname == ""%}
+        <p>You can join our club and train with us</p>
+    {% else %}
+        <p>you are not van persie</p>
+    {% endif %}
+    {% comment %}
+        <h1>this part will not be shown on browser</h1>
+        <h1>this is a comment in django</h1>
+    {% endcomment %}
+    {% if firstname == "van persie" and shoes == "nike" %}
+        <h3>Nice shoes for training</h3>
+    {% else %}
+        <h3>Not nice shoes for training</h3>
+
+    {% endif %}
+    {% if "van persie" in firstname %}
+        <p>you are a great player</p>
+    {% else %}
+        <p>You can join us and become great player</p>     
+    {% endif %}
+    <h1>Here are the details for your team members</h1>
+    <table border="1">
+        <tr>
+            <th>firstname</th>
+            <th>lastname</th>
+            <th>phone_no</th></th>
+            <th>chosen_date</th>
+        </tr>
+    {% for member in mymembers  %}
+        <tr>
+            <td>{{member.firstname}}</td>
+            <td>{{member.lastname}}</td>
+            <td>{{member.phone_no}}</td>
+            <td>{{member.chosen_date}}</td>
+        </tr>
+        {% endfor %} 
+    </table>  
+{% endblock %}
+</body>
+</html>
